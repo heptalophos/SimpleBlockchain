@@ -3,7 +3,6 @@ Set the environment and start 3 instances
 ``powershell
 $env:FLASK_APP=".\blockchain.py"
 $env:FLASK_DEBUG=1
-$env:WERKZEUG_DEBUG_PIN="off"
 
 flask run -h localhost -p 5000
 flask run -h localhost -p 5001
