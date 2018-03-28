@@ -5,9 +5,6 @@ from time import time
 from urllib.parse import urlparse
 
 
-
-
-
 class Blockchain:
     def __init__(self):
         self.current_transactions = []
@@ -17,7 +14,6 @@ class Blockchain:
         # A set of nodes (because we want the addition of new nodes to be idempotent)
         self.nodes = set()
 
-
     def register_node(self, address):
         """
         Add a new node to a set of nodes
@@ -25,7 +21,6 @@ class Blockchain:
         :param address: <str> Address of node. E.g. 'http://192.168.0.5:5000'
         :return: None 
         """
-
         parsed_url = urlparse(address)
         if parsed_url.netloc:
             self.nodes.add(parsed_url.netloc)
@@ -33,7 +28,6 @@ class Blockchain:
             self.nodes.add(parsed_url.path)
         else:
             raise ValueError('Invalid URL')
-
 
     def valid_chain(self, chain):
         """
@@ -62,7 +56,6 @@ class Blockchain:
 
         return True
 
-
     def resolve_conflicts(self):
         """
         The Consensus Algorithm, it resolves conflicts by replacing 
@@ -70,13 +63,10 @@ class Blockchain:
 
         :return: <bool> True if our chain was replaced, false if not 
         """
-
         neighbours = self.nodes
         new_chain = None
-
         # Look only for chains longer than this
         max_length = len(self.chain)
-
         # Get and verify the chains from all the nodes in the network
         for node in neighbours:
             response = requests.get(f'http://{node}/chain')
@@ -87,15 +77,11 @@ class Blockchain:
                 if length > max_length and self.valid_chain(chain):
                     max_length = length
                     new_chain = chain
-
         # Replace this chain if a longer valid chain is discovered
         if new_chain:
             self.chain = new_chain
             return True
-                    
         return False
-    
-
 
     def new_block(self, proof, previous_hash=None):
         """
@@ -116,10 +102,9 @@ class Blockchain:
 
         # Reset the current list of transactions
         self.current_transactions = []
-
+        # Add block to existing chain
         self.chain.append(block)
         return block
-
 
     def new_transaction(self, sender, recipient, amount):
         """
@@ -140,12 +125,10 @@ class Blockchain:
 
         return self.last_block['index'] + 1
 
-
     @property
     def last_block(self):
         # Returns last block in chain
         return self.chain[-1]
-
 
     @staticmethod
     def hash(block):
@@ -158,7 +141,6 @@ class Blockchain:
         # The dictionary MUST be ordered, or we can have inconsistent hashes
         block_string = json.dumps(block, sort_keys=True).encode()
         return hashlib.sha256(block_string).hexdigest()
-
 
     def proof_of_work(self, last_block):
         """
@@ -178,7 +160,6 @@ class Blockchain:
             proof += 1
 
         return proof
- 
 
     @staticmethod
     def valid_proof(last_proof, proof, last_hash):
