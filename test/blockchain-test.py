@@ -8,9 +8,10 @@ class BlockchainTestCase(unittest.TestCase):
     def setUp(self):
         self.bc1 = Blockchain()
         self.bc2 = Blockchain()
+        self.bc3 = Blockchain()
         
     def test_new_node(self):
-        self.bc1.register_node('http://192.168.0.5:5000')
+        self.bc1.register_node('192.168.0.5:5000')
         self.bc1.register_node('localhost:5001')
         self.assertIsInstance(self.bc1.nodes, set)
         self.bc1.register_node('localhost:5001')
@@ -24,10 +25,13 @@ class BlockchainTestCase(unittest.TestCase):
             self.bc1.new_block(self.bc1.proof_of_work(self.bc1.last_block))
             self.bc1.new_transaction("Beatrice", "Amanda", 3)
             self.bc2.new_block(self.bc2.proof_of_work(self.bc2.last_block))
-            self.bc2.new_transaction("Amanda", "Me", 5)
+            self.bc2.new_transaction("Amanda", "Me", 2)
+            self.bc3.new_block(self.bc2.proof_of_work(self.bc2.last_block))
+            self.bc3.new_transaction("Amanda", "Me", 5)
             c += 1
         self.assertEqual(self.bc1.valid_chain(self.bc1.chain), True)
-        self.assertFalse(self.bc1.valid_chain(self.bc2.chain))
+        self.assertTrue(self.bc1.valid_chain(self.bc2.chain))
+        self.assertFalse(self.bc3.valid_chain(self.bc3.chain))
 
     def test_resolve(self):
         pass

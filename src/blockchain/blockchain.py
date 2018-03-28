@@ -42,14 +42,15 @@ class Blockchain:
         
         while current_index < len(chain):
             block = chain[current_index]
-            print(f'{last_block}')
-            print(f'{block}')
-            print("\n--------------------\n")
+            # print(f'{last_block}')
+            # print(f'{block}')
+            # print("\n--------------------\n")
             # Check correctness of last block's hash
             if block['previous_hash'] != self.hash(last_block): 
                 return False
             # Check correctness of proof-of-work
-            if not self.valid_proof(last_block['proof'], block['proof'], last_block['previous_hash']):
+            # if not self.valid_proof(last_block['proof'], block['proof'], last_block['previous_hash']):
+            if not self.valid_proof(last_block['proof'], block['proof'], block['previous_hash']):
                 return False
             last_block = block 
             current_index += 1
