@@ -37,7 +37,6 @@ class BlockchainTestCase(unittest.TestCase):
         pass
 
     def test_new_block(self):
-        print(f'a: {json.dumps(self.bc1.chain, sort_keys=True)}')
         self.bc1.new_block(0)
         self.bc1.new_block('1')
         self.bc1.new_block('abc')
@@ -84,7 +83,7 @@ class BlockchainTestCase(unittest.TestCase):
 
 
     def test_hash(self):
-        print(f'\nb: {json.dumps(self.bc1.chain, sort_keys=True)}')
+        # print(f'\nb: {json.dumps(self.bc1.chain, sort_keys=True)}')
         self.assertEqual(self.bc1.hash(0), '5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9')
         self.assertEqual(self.bc2.hash('0'), '98089e6d36f78e9766c9ea34d5acb3611f3a92cd81c5eb102095d924ffc7d08b')
         self.assertEqual(self.bc1.hash(1), '6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b')
