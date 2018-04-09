@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 import hashlib
 import json
 
@@ -10,8 +12,6 @@ class Blockchain:
         self.current_transactions = []
         self.chain = []
         # Create the genesis block
-        
-        
         self.new_block(previous_hash='1', proof=100)
         # A set of nodes (because we want the addition of new nodes to be idempotent)
         self.nodes = set()

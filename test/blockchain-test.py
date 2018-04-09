@@ -1,5 +1,14 @@
+# -*- coding: utf-8 -*-
+
+"""
+    tests for Blockchain
+
+"""
+
 import unittest, json, sys
 sys.path.extend([".", ".."])
+
+from ensure import ensure
 
 from src.blockchain.blockchain import Blockchain
 
