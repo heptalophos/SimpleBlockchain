@@ -44,8 +44,6 @@ class Blockchain:
         
         while current_index < len(chain):
             block = chain[current_index]
-            # print(f'{last_block}')
-            # print(f'{block}')
             # print("\n--------------------\n")
             # Check correctness of last block's hash
             if block['previous_hash'] != self.hash(last_block): 
