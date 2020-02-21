@@ -13,9 +13,6 @@ import inspect
 # from ensure import ensure
 from src.blockchain.blockchain import Blockchain
 
-
-
-
 class BlockchainTestCase(unittest.TestCase):
 
     def setUp(self):
